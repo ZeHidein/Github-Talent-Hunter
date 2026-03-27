@@ -1,0 +1,52 @@
+/* 📝 Typography System */
+:root {
+  /* Heading sizes */
+  --font-heading-4xl: 64px;
+  --line-heading-4xl: 72px;
+
+  --font-heading-2xl: 48px;
+  --line-heading-2xl: 52px;
+
+  --font-heading-xl: 36px;
+  --line-heading-xl: 42px;
+
+  --font-heading-lg: 24px;
+  --line-heading-lg: 36px;
+
+  --font-heading-md: 20px;
+  --line-heading-md: 24px;
+
+  --font-heading-sm: 18px;
+  --line-heading-sm: 22px;
+
+  /* Body text sizes */
+  --font-body-lg: 18px;
+  --line-body-lg: 22px;
+
+  --font-body-base: 16px;
+  --line-body-base: 19.2px;
+
+  --font-body-sm: 14px;
+  --line-body-sm: 18px;
+
+  --font-body-xs: 12px;
+  --line-body-xs: 16px;
+}
+
+/* 📱 Responsive typography */
+@media (max-width: 768px) {
+  :root {
+    /* Smaller headings on mobile */
+    --font-heading-4xl: 36px;
+    --line-heading-4xl: 40px;
+
+    --font-heading-2xl: 34px;
+    --line-heading-2xl: 38px;
+
+    --font-heading-xl: 28px;
+    --line-heading-xl: 32px;
+
+    --font-heading-lg: 20px;
+    --line-heading-lg: 24px;
+  }
+}

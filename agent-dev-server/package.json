@@ -1,0 +1,42 @@
+{
+  "name": "agent-dev-server",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node ./build/app.js",
+    "dev": "node ./esbuild.dev.mjs",
+    "build": "node ./esbuild.prod.mjs"
+  },
+  "devDependencies": {
+    "@types/compression": "^1.8.1",
+    "@types/node": "^24.12.0",
+    "@types/ws": "^8.18.1",
+    "esbuild": "^0.25.12",
+    "esbuild-plugin-copy": "^2.1.1",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@ai-sdk/amazon-bedrock": "^4.0.77",
+    "@ai-sdk/anthropic": "^3.0.58",
+    "@ai-sdk/google-vertex": "^4.0.80",
+    "@ai-sdk/openai": "^3.0.41",
+    "@ai-sdk/provider": "^3.0.8",
+    "@ai-sdk/provider-utils": "^4.0.19",
+    "@ai-sdk/xai": "^3.0.67",
+    "@modelcontextprotocol/sdk": "^1.27.1",
+    "@openrouter/ai-sdk-provider": "^2.3.3",
+    "@trpc/server": "^11.13.4",
+    "ai": "^6.0.116",
+    "best-effort-json-parser": "^1.4.0",
+    "compression": "^1.8.1",
+    "dedent": "^1.7.2",
+    "langfuse": "^3.38.6",
+    "mammoth": "^1.12.0",
+    "pdf-parse": "^2.4.5",
+    "read-excel-file": "^7.0.2",
+    "sirv": "^3.0.2",
+    "ws": "^8.19.0",
+    "zod": "^3.25.76"
+  }
+}

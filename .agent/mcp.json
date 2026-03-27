@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "ui": {
+      "enabled": true,
+      "description": "Browser-based UI capabilities including visual components, voice assistance, and memory bank"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+.gradient-border {
+  position: relative;
+  background: #f3f3f6;
+  border-radius: var(--radius-input);
+  z-index: 1;
+}
+
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  background-color: #f3f3f6;
+  border-radius: var(--radius-input);
+  z-index: -1;
+}

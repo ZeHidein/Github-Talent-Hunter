@@ -1,0 +1,38 @@
+/* 📏 Layout & Container System */
+:root {
+  --main-col-w: 720px;
+  --main-col-w-mobile: 100%;
+
+  /* Container widths */
+  --container-xs: 480px; /* Small components */
+  --container-sm: 640px; /* Forms, cards */
+  --container-md: 768px; /* Medium content */
+  --container-lg: 1100px; /* Large content */
+  --container-xl: 1400px; /* Main content */
+  --container-2xl: 1600px; /* Hero sections, full width */
+  --container-content: 900px; /* Text content, descriptions */
+  --container-form: 700px; /* Forms, inputs */
+
+  /* Border radius system */
+  --radius-xl: 30px;
+  --radius: 20px;
+  --radius-md: 15px;
+  --radius-sm: 8px;
+  --radius-input: 50px;
+}
+
+/* 📱 Responsive containers */
+@media (max-width: 768px) {
+  :root {
+    /* Full width containers on mobile */
+    --container-xl: 100%;
+    --container-lg: 100%;
+    --container-content: 100%;
+    --container-form: 100%;
+
+    /* Smaller radius on mobile */
+    --radius: 16px;
+    --radius-md: 12px;
+    --radius-xl: 24px;
+  }
+}

@@ -1,0 +1,8 @@
+.recording-button:hover .stop {
+  background-color: #b5c9f6;
+}
+
+.recording-button:active .stop {
+  background-color: #2563eb;
+  border-color: white;
+}

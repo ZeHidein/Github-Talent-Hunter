@@ -1,0 +1,58 @@
+/* 🌙 Dark Color System */
+/* Applied when <html> root element has class="dark" */
+:root.dark {
+  --background: 0 0% 0%;
+  --foreground: 0 0% 100%;
+  --primary: 0 0% 98%;
+  --primary-foreground: 0 0% 9%;
+  --secondary: 0 86% 55%;
+  --secondary-foreground: 0 0% 100%;
+  --muted: 0 0% 10%;
+  --muted-foreground: 0 0% 60%;
+
+  /* Accent & interactive colors */
+  --accent: 0 86% 55%;
+  --accent-hover: 0 86% 50%;
+  --accent-foreground: 0 0% 100%;
+
+  /* Status colors */
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 98%;
+  --success: 142 76% 36%;
+  --success-foreground: 0 0% 98%;
+
+  /* Component colors */
+  --card: 0 0% 3%;
+  --card-foreground: 0 0% 100%;
+
+  --popover: 0 0% 3%;
+  --popover-foreground: 0 0% 100%;
+
+  /* Form colors */
+  --border: 0 0% 20%;
+  --input: 0 0% 20%;
+  --ring: 0 0% 100%; /* White ring */
+
+  /* Link colors */
+  --link: 0 86% 65%;
+  --link-hover: 0 86% 55%;
+  --link-visited: 0 86% 60%;
+
+  /* Special effects */
+  --glass: 0 0% 0% / 0.3;
+
+  /* Chart colors */
+  --chart-1: 0 0% 100%;
+  --chart-2: 0 86% 55%;
+  --chart-3: 0 0% 60%;
+  --chart-4: 0 0% 30%;
+  --chart-5: 210 100% 50%;
+
+  --table-border-color: rgba(255, 255, 255, 0.1);
+  --user-message-bg-color: #2a2a2a;
+
+  /* Shimmer effect colors */
+  --shimmer-base: 0 0% 100%;
+  --shimmer-highlight: 0 0% 100%;
+  --shimmer-highlight-opacity: 0.7;
+}

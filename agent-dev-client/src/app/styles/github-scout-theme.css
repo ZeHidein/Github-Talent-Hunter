@@ -1,0 +1,59 @@
+/* 🌑 GitHub Talent Scout - Dark Tech Theme */
+/* Deep navy/slate with GitHub-inspired green accent */
+:root.dark {
+  /* Base colors - deep slate */
+  --background: 222 47% 5%;
+  --foreground: 210 40% 93%;
+  --primary: 142 60% 50%;
+  --primary-foreground: 222 47% 5%;
+  --secondary: 215 28% 17%;
+  --secondary-foreground: 210 40% 93%;
+  --muted: 217 33% 12%;
+  --muted-foreground: 215 20% 55%;
+
+  /* Accent & interactive colors - GitHub green */
+  --accent: 142 60% 45%;
+  --accent-hover: 142 60% 38%;
+  --accent-foreground: 222 47% 5%;
+
+  /* Status colors */
+  --destructive: 0 72% 51%;
+  --destructive-foreground: 0 0% 98%;
+  --success: 142 76% 36%;
+  --success-foreground: 0 0% 98%;
+
+  /* Component colors */
+  --card: 222 40% 8%;
+  --card-foreground: 210 40% 93%;
+
+  --popover: 222 40% 10%;
+  --popover-foreground: 210 40% 93%;
+
+  /* Form colors */
+  --border: 217 33% 18%;
+  --input: 217 33% 15%;
+  --ring: 142 60% 50%;
+
+  /* Link colors */
+  --link: 142 60% 55%;
+  --link-hover: 142 60% 45%;
+  --link-visited: 142 40% 50%;
+
+  /* Special effects */
+  --glass: 222 47% 5% / 0.4;
+
+  /* Chart colors */
+  --chart-1: 142 60% 50%;
+  --chart-2: 199 89% 48%;
+  --chart-3: 262 52% 60%;
+  --chart-4: 38 92% 50%;
+  --chart-5: 0 72% 51%;
+
+  --table-border-color: rgba(56, 189, 120, 0.12);
+  --user-message-bg-color: hsl(217, 33%, 14%);
+
+  /* Shimmer effect colors */
+  --shimmer-base: 142 60% 50%;
+  --shimmer-highlight: 142 60% 70%;
+  --shimmer-highlight-opacity: 0.5;
+}

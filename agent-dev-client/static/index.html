@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="theme-color" content="#ffffff" />
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Agentplace" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@100;200;300;400;500;600;700;800;900"
+      media="all"
+    />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agentplace Platform Agent</title>
+    <link rel="stylesheet" href="/main.css" />
+
+    <!-- Development tools, DO NOT REMOVE -->
+    <script src="/sprintf.min.js"></script>
+    <script src="/livereload.js"></script>
+    <script src="/overlay.js"></script>
+    <script src="/server-status-overlay.js"></script>
+    <style>
+      #root > .loading-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      #root > .loading-container > .loading-spinner {
+        width: 64px;
+        height: 64px;
+        animation: spin 0.8s linear infinite;
+      }
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <div class="loading-container">
+        <svg class="loading-spinner" viewBox="0 0 64 64" fill="none">
+          <title>Loading...</title>
+          <circle
+            cx="32"
+            cy="32"
+            r="30"
+            stroke="url(#circularLoaderGradient)"
+            stroke-width="1"
+            stroke-linecap="round"
+            stroke-dasharray="50 150"
+          />
+          <defs>
+            <linearGradient id="circularLoaderGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#6b7280" stop-opacity="0.2" />
+              <stop offset="50%" stop-color="#6b7280" stop-opacity="1" />
+              <stop offset="100%" stop-color="#6b7280" stop-opacity="0.2" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+    </div>
+    <script src="/main.js"></script>
+  </body>
+</html>

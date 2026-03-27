@@ -1,0 +1,25 @@
+/* 📁 CSS imports MUST come first */
+
+/* GitHub Scout dark theme */
+@import "./styles/github-scout-theme.css";
+
+@import "./styles/typography.css";
+@import "./styles/containers.css";
+@import "./styles/utilities.css";
+@import "./styles/markdown-style.css";
+
+/* Tailwind CSS directives */
+@import "tailwindcss";
+@config "../../tailwind.config.cjs";
+
+@theme {
+  --breakpoint-xs: 30rem;
+}
+
+#root,
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: hsl(var(--background));
+}

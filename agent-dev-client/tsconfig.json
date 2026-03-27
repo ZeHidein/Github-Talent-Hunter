@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "target": "es2022",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "experimentalDecorators": false,
+    "emitDecoratorMetadata": false,
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "allowImportingTsExtensions": true,
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "downlevelIteration": true,
+    "paths": {
+      "@/*": ["./src/*"],
+      "@agent-library": ["../shared/vendor/agent-library/index.ts"],
+      "@agent-library/*": ["../shared/vendor/agent-library/*"]
+    }
+  },
+  "include": ["src/**/*", "vendor/**/*"],
+  "exclude": ["node_modules", "./build"]
+}
