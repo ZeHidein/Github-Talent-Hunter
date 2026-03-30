@@ -211,12 +211,6 @@ Agent 会引导你完成 4 阶段信息采集：
 
 ---
 
-## 📝 许可证
-
-本项目基于 [MIT License](LICENSE) 开源。
-
----
-
 ## 🙏 致谢
 
 - [AgentPlace](https://agentplace.ai) — 无代码 AI 应用构建平台
