@@ -1,6 +1,6 @@
 # 🔍 GitHub Talent Hunter / GitHub 人才猎手
 
-> AI 驱动的技术人才招聘 Agent —— 通过结构化对话诊断企业能力短板，智能匹配 GitHub 顶尖人才。
+AI 驱动的技术人才招聘 Agent —— 通过结构化对话诊断企业能力短板，智能匹配 GitHub 顶尖人才。
 
 [![AgentPlace](https://img.shields.io/badge/Built%20with-AgentPlace-blueviolet)](https://agentplace.ai)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-blue)](https://www.typescriptlang.org/)
@@ -191,54 +191,9 @@ Agent 会引导你完成 4 阶段信息采集：
 └─────────────────────────────────────────────────────────┘
 ```
 
-### 核心组件
-
-#### DiagnosisReport
-展示组织能力诊断结果的可视化组件：
-- 雷达图：基于 Recharts 的 8 维度能力图
-- 评分条：各维度 1-10 分直观展示
-- 差距分析：可展开的短板详情与人才建议
-- 交互按钮：一键触发 GitHub 人才搜索
-
-#### TalentCard
-展示 GitHub 用户档案的卡片组件：
-- 用户信息：头像、名称、简介、位置
-- 统计信息：粉丝、仓库、关注数
-- 语言标签：带颜色标识的编程语言
-- 热门仓库：可展开的 Top 项目列表
-
 ---
 
 ## ⚙️ 配置说明
-
-### Skill 配置
-企业诊断 Skill 位于 `.agent/skills/company-diagnosis/SKILL.md`，支持以下自定义：
-
-```yaml
----
-name: company-diagnosis
-description: 自定义诊断描述
-metadata:
-  autoload: true  # 是否自动加载
----
-
-# 自定义诊断维度和评分标准...
-```
-
-### 主题定制
-前端主题基于 Tailwind CSS，可在 `agent-dev-client/tailwind.config.js` 中自定义：
-
-```javascript
-// 默认配色：深色科技风
-{
-  colors: {
-    primary: '#238636',    // GitHub 绿
-    background: '#0d1117', // 深海军蓝
-    card: '#161b22',       // 卡片背景
-    border: '#30363d',     // 边框
-  }
-}
-```
 
 ### GitHub API 限制
 - **无认证**: 10 请求/分钟
@@ -247,87 +202,11 @@ metadata:
 
 ---
 
-## 🎯 使用示例
-
-### 示例 1：初创公司招聘全栈工程师
-
-**用户输入：**
-> 我们是一家做电商 SaaS 的初创公司，10 人技术团队，用 React 和 Node.js，想找能带团队的全栈工程师。
-
-**Agent 响应：**
-1. 询问团队结构、技术债务、业务目标
-2. 生成诊断报告：
-   - 技术基础设施: 5/10（需提升）
-   - 团队能力密度: 4/10（急需补强）
-   - 交付效率: 6/10（良好）
-3. 推荐人才画像：Tech Lead / 全栈架构师
-4. 搜索关键词：`react nodejs fullstack tech-lead`
-
-### 示例 2：成熟企业招聘 AI 工程师
-
-**用户输入：**
-> 我们是金融科技公司，200+ 工程师，现在要做智能风控系统，需要招 ML 工程师。
-
-**Agent 响应：**
-1. 深入了解数据能力、现有 ML 基础、合规要求
-2. 生成诊断报告：
-   - 数据智能: 3/10（急需补强）⚠️
-   - 安全合规: 8/10（优势）
-3. 推荐人才画像：机器学习工程师 / 风控算法专家
-4. 搜索关键词：`machine-learning python tensorflow risk-control fintech`
-
----
-
-## 📁 项目结构
-
-```
-Github-Talent-Hunter/
-├── .agent/
-│   └── skills/
-│       └── company-diagnosis/
-│           └── SKILL.md          # 企业诊断 Skill
-├── agent-dev-server/
-│   └── src/
-│       └── bl/
-│           ├── messaging/
-│           │   └── skills-loader.ts    # Skill 加载器
-│           └── tools/
-│               └── impl/
-│                   └── github-talent.tool.ts  # GitHub 搜索工具
-├── agent-dev-client/
-│   └── src/
-│       └── app/
-│           └── agent/
-│               └── components/
-│                   ├── DiagnosisReport.tsx   # 诊断报告组件
-│                   └── TalentCard.tsx        # 人才卡片组件
-├── .agentplace/
-│   ├── project-description.md
-│   ├── specification.md
-│   └── high-level-architecture.md
-└── README.md
-```
-
----
-
 ## 🤝 贡献指南
 
-欢迎提交 Issue 和 PR！贡献前请阅读以下指南：
+欢迎提交 Issue 和 PR！
 
-1. **Fork 项目** 并创建你的特性分支 (`git checkout -b feature/amazing-feature`)
-2. **提交更改** (`git commit -m 'Add amazing feature'`)
-3. **推送分支** (`git push origin feature/amazing-feature`)
-4. **创建 Pull Request**
-
-### 待办事项
-
-- [ ] 支持 LinkedIn、StackOverflow 等多平台人才搜索
-- [ ] 添加人才评估问卷，验证技能匹配度
-- [ ] 支持团队批量导入和分析
-- [ ] 集成邮件系统，直接联系候选人
-- [ ] 添加更多可视化图表（团队结构图、技术栈趋势）
-
-**相关项目**：
+### 相关项目
 - 🔗 [ClawHub Skill](https://clawhub.ai/skills/github-talent-hunter) — Python CLI 版本，支持 `--chinese-focus` 华人特性分析
 
 ---
@@ -344,9 +223,4 @@ Github-Talent-Hunter/
 - [GitHub API](https://docs.github.com/en/rest) — 人才数据源
 - [Google Gemini](https://deepmind.google/technologies/gemini/) — 大语言模型支持
 - [Recharts](https://recharts.org/) — 数据可视化组件
-
----
-
-<p align="center">
-  用 ❤️ 和 🤖 构建 | 让招聘更智能
-</p>
+- [OpenClaw](https://openclaw.ai) — CLI Skill 生态支持
