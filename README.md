@@ -1,220 +1,228 @@
-# 🔍 GitHub Talent Hunter / GitHub 人才猎手
+# GitHub Talent Hunter v1.2.3
 
-AI 驱动的技术人才招聘 Agent —— 通过结构化对话诊断企业能力短板，智能匹配 GitHub 顶尖人才。
+AI 驱动的 GitHub 技术人才招聘工具。支持企业智能诊断、GitHub 人才搜索/分析、华人开发者特性分析（大厂背景/双轨参与）、以及产品型开发者识别（Building in Public）。基于 Kimi 2.5，零依赖 Python CLI。
 
-[![AgentPlace](https://img.shields.io/badge/Built%20with-AgentPlace-blueviolet)](https://agentplace.ai)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-blue)](https://www.typescriptlang.org/)
-[![React](https://img.shields.io/badge/React-18+-61DAFB)](https://react.dev/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+## 核心能力
 
----
+1. **企业智能诊断** - 3 阶段结构化对话了解企业技术现状与人才需求
+2. **GitHub 人才搜索** - 支持多维度筛选的精准搜索
+3. **人才档案分析** - 深度分析开发者的开源贡献和技术栈
+4. **华人特性分析** ⭐ - 检测大厂背景、双轨参与、中文内容
+5. **产品型开发者识别** 🚀 - 识别 Building in Public 型全能开发者
+6. **诊断报告生成** - 8 维度能力评估模型
 
-## ✨ 核心功能
+## 快速开始
 
-### 🏢 企业智能问诊
-通过 4 阶段结构化对话深度了解企业：
-- **基础画像** — 公司规模、行业、发展阶段
-- **技术架构** — 技术栈、架构模式、DevOps 成熟度
-- **组织文化** — 团队结构、工程文化、协作方式
-- **痛点目标** — 技术短板、业务增长、招聘需求
-
-### 📊 组织能力诊断
-基于 **8 维度评估模型** 生成专业诊断报告：
-
-| 维度 | 评估内容 | 对应人才 |
-|------|---------|---------|
-| 🏗️ 技术基础设施 | 云服务、CI/CD、监控体系 | DevOps/SRE |
-| 🏛️ 架构设计能力 | 可扩展性、技术选型 | 架构师 |
-| ⚡ 工程质量 | 代码质量、测试覆盖 | QA/工程效率专家 |
-| 🧠 数据智能 | 数据分析、AI/ML 应用 | 数据工程师 |
-| 🔒 安全合规 | 安全实践、数据保护 | 安全工程师 |
-| 👥 团队能力密度 | 技术水平、学习氛围 | Tech Lead |
-| 🚀 创新能力 | 技术探索、开源贡献 | 创新工程师 |
-| ⏱️ 交付效率 | 迭代速度、响应能力 | 工程效率专家 |
-
-### 🔎 GitHub 人才搜索
-智能匹配算法将诊断结果转化为精准的 GitHub 搜索策略：
-- 支持关键词、语言、地域、仓库数、粉丝数筛选
-- 自动提取用户热门仓库和编程语言统计
-- 生成可视化人才卡片，一键查看详细档案
-
----
-
-## 🎁 双版本可用
-
-本项目提供**两个版本**，满足不同使用场景：
-
-### 版本对比
-
-| 维度 | Web UI 版本（本仓库） | CLI Skill 版本（ClawHub） |
-|------|---------------------|---------------------------|
-| **定位** | React Web 应用 | OpenClaw CLI 工具 |
-| **界面** | 可视化对话界面 + 雷达图 | 命令行交互 |
-| **技术栈** | React + TypeScript + Node.js | Python（仅标准库） |
-| **安装** | `npm install` + 配置环境变量 | `clawhub install github-talent-hunter` |
-| **AI 模型** | Google Gemini | **Kimi 2.5**（更适合中文） |
-| **华人特性** | ❌ 无 | ✅ `--chinese-focus` 大厂背景检测 |
-| **适用场景** | 团队协作、可视化分析 | 快速搜索、自动化脚本 |
-| **代码量** | ~5000 行 | ~800 行（单文件版） |
-
-### 如何选择？
-
-**使用本仓库（Web UI）如果你：**
-- 需要可视化界面和雷达图
-- 团队协作，非技术人员也要使用
-- 希望看到直观的诊断报告
-- 已经配置了 Gemini API Key
-
-**使用 ClawHub Skill 如果你：**
-- 偏好命令行操作
-- 需要快速搜索、批量处理
-- 想找华人开发者（大厂背景检测）
-- 已经是 OpenClaw 用户
-
-### 🔗 ClawHub Skill
+### 环境配置
 
 ```bash
-# 一键安装
-clawhub install github-talent-hunter
+# 必需：Kimi API Key（仅 diagnose 命令需要）
+export KIMI_API_KEY="your-kimi-api-key"
 
-# 使用示例
-python3 -m github-talent-hunter search "backend developer" \
-    --language go \
+# 可选但强烈建议：GitHub Token
+# 无 Token：10 请求/分钟 ｜ 有 Token：30 请求/分钟
+export GITHUB_TOKEN="your-github-token"
+```
+
+### 使用方法
+
+```bash
+# 1. 企业诊断（交互式）
+python3 scripts/github-talent-hunter diagnose
+
+# 2. 搜索人才
+python3 scripts/github-talent-hunter search "fullstack developer" \
+    --language typescript \
+    --location china
+
+# 3. 分析指定用户
+python3 scripts/github-talent-hunter analyze octocat
+
+# 4. 启用华人特性分析
+python3 scripts/github-talent-hunter search "backend developer" \
+    --language java \
     --chinese-focus
+
+# 5. 启用产品型开发者识别（Building in Public）🚀 NEW
+python3 scripts/github-talent-hunter search "fullstack" --product-maker -n 10
+python3 scripts/github-talent-hunter analyze Vonng --product-maker
+
+# 6. 单文件版本（无需安装）
+python3 scripts/github-talent-hunter-standalone.py diagnose
 ```
 
-**Skill 链接**: https://clawhub.ai/skills/github-talent-hunter
+## 📦 安装方式
 
----
-
-## 🚀 快速开始
-
-### 环境要求
-- Node.js 18+
-- npm / yarn / pnpm
-- GitHub API Token（可选，用于更高配额）
-
-### 安装
+### 方式一：ClawHub（推荐）
 
 ```bash
-# 克隆项目
-git clone https://github.com/ZeHidein/Github-Talent-Hunter.git
-cd Github-Talent-Hunter
-
-# 安装依赖
-cd agent-dev-server && npm install
-cd ../agent-dev-client && npm install
+clawhub install github-talent-hunter
 ```
 
-### 配置
+🔗 https://clawhub.com/skills/github-talent-hunter
 
-1. 复制环境变量文件：
-```bash
-cp agent-dev-server/.env.example agent-dev-server/.env
-```
-
-2. 编辑 `.env` 文件，添加你的配置：
-```env
-# 必需
-GOOGLE_API_KEY=your_gemini_api_key
-
-# 可选（提高 GitHub API 配额）
-GITHUB_TOKEN=your_github_personal_access_token
-```
-
-### 启动
+### 方式二：GitHub 克隆
 
 ```bash
-# 启动后端（在 agent-dev-server 目录）
-npm run dev
-
-# 启动前端（在 agent-dev-client 目录）
-npm run dev
+git clone https://github.com/ZeHidein/github-talent-hunter.git
+cd github-talent-hunter/scripts
+chmod +x github-talent-hunter
 ```
 
-访问 http://localhost:3000 开始使用。
+## 功能详解
 
----
+### 🔍 人才搜索
 
-## 📖 使用指南
-
-### 1️⃣ 开始对话
-启动应用后，Agent 会自动问候并介绍其功能。你可以直接描述你的招聘需求，例如：
-> "我们是一家做 AI 基础设施的初创公司，想找有 Kubernetes 和 Rust 经验的工程师。"
-
-### 2️⃣ 完成企业问诊
-Agent 会引导你完成 4 阶段信息采集：
-```
-┌─────────────────────────────────────────┐
-│  阶段 1: 企业基础画像                    │
-│  阶段 2: 技术架构与能力                  │
-│  阶段 3: 组织与文化                      │
-│  阶段 4: 痛点与目标                      │
-└─────────────────────────────────────────┘
+```bash
+usage: search [-h] [-l LANGUAGE] [--location LOCATION] [-f FOLLOWERS] 
+              [-r REPOS] [-n LIMIT] [--chinese-focus] [--product-maker] query
 ```
 
-### 3️⃣ 查看诊断报告
-完成问诊后，Agent 会生成包含以下内容的诊断报告：
-- 🎯 **能力雷达图** — 8 维度可视化评分
-- 📈 **维度评分** — 详细的各项能力得分
-- ⚠️ **差距分析** — 识别关键短板并推荐人才画像
-- 🔍 **一键搜索** — 点击即可搜索匹配的 GitHub 人才
+**参数说明：**
+- `-l, --language`：编程语言（如 typescript, go, python）
+- `--location`：地理位置（如 china, beijing）
+- `-f, --followers`：粉丝数条件（如 ">1000"）
+- `--chinese-focus`：启用华人特性分析
+- `--product-maker`：启用产品型开发者识别
 
-### 4️⃣ 浏览人才卡片
-查看搜索结果：
-- 👤 开发者档案（头像、简介、位置、公司）
-- 📊 统计数据（粉丝数、仓库数、加入时间）
-- 🏷️ 技术标签（主要编程语言）
-- 📁 热门项目（Stars、Forks、语言）
+### 🇨🇳 华人特性分析（--chinese-focus）
 
----
+专为识别华人开发者设计：
 
-## 🏗️ 技术架构
+| 特征 | 检测方式 | 输出 |
+|------|----------|------|
+| **大厂背景** | 邮箱域名、公司字段匹配 | 阿里、腾讯、字节、华为等 20+ 大厂 |
+| **双轨参与指数** | 公司项目星标 vs 个人项目星标 | 0-1 分值，>0.7 为双轨活跃 |
+| **中文内容** | Bio、项目简介中的中文字符 | 中文简介、双语项目 |
+| **技术栈偏好** | 语言使用频率加权 | Java(3.3x)、Go(1.5x)、Python(1.2x) |
+
+### 🚀 产品型开发者识别（--product-maker）
+
+识别 "Building in Public" 型全能开发者：
+
+| 维度 | 评估内容 | 权重 |
+|------|----------|------|
+| **产品落地** | 项目有独立 homepage | +30 |
+| **公开分享** | 有 Twitter 账号 | +20 |
+| **品牌建设** | 有个人网站 | +15 |
+| **技术影响力** | GitHub Stars | +0.1/星 (上限20) |
+| **持续迭代** | 最近一年活跃项目数 | +10 (3+项目) |
+| **技术广度** | 多语言技术栈 | +5 |
+
+**评级标准：**
+- ≥60分：🚀 全能型开发者
+- ≥40分：⭐ 潜力型开发者
+- ≥20分：📊 技术型开发者
+
+## 示例输出
+
+### 产品型开发者分析
 
 ```
-┌─────────────────────────────────────────────────────────┐
-│                    GitHub Talent Hunter                 │
-├─────────────────────────────────────────────────────────┤
-│  Frontend (React + TypeScript)                         │
-│  ├── DiagnosisReport    # 诊断报告组件（雷达图）        │
-│  ├── TalentCard         # 人才卡片组件                 │
-│  └── Chat Interface     # 对话界面                     │
-├─────────────────────────────────────────────────────────┤
-│  Backend (Node.js + AgentPlace)                        │
-│  ├── Company Diagnosis Skill  # 企业诊断 Skill         │
-│  ├── SearchGitHubTalent Tool  # GitHub 搜索工具        │
-│  └── LLM Orchestration        # 对话编排               │
-├─────────────────────────────────────────────────────────┤
-│  External APIs                                         │
-│  ├── GitHub REST API    # 用户搜索与档案获取           │
-│  └── Google Gemini      # 自然语言处理与诊断分析       │
-└─────────────────────────────────────────────────────────┘
+## 👤 Feng Ruohang
+
+**GitHub:** @Vonng | **位置:** Singapore | **公司:** Pigsty
+
+**粉丝:** 1963 | **仓库:** 104 | **总星标:** 26168
+
+### 🚀 产品型开发者分析 (Building in Public)
+
+🎯 产品型分析: 🚀 全能型开发者 (Building in Public) (得分: 110.0/100)
+   关键信号: Twitter(@RonVonng), 个人网站, 7个产品落地, GitHub Pages, 高影响力(⭐26168), 持续活跃, 多语言技术栈
+   🐦 Twitter: https://twitter.com/RonVonng
+   🌐 个人网站: https://vonng.com/en
+   📦 产品项目:
+      - ddia: https://ddia.vonng.com (⭐ 22845)
+      - blog: http://blog.vonng.com/ (⭐ 12)
 ```
 
----
+## 技术栈
 
-## ⚙️ 配置说明
+- **LLM**：Kimi 2.5 (`kimi-coding/k2p5`)
+- **数据源**：GitHub API
+- **语言**：Python 3.8+（仅标准库，零依赖）
+- **架构**：CLI 工具 + 模块化脚本
 
-### GitHub API 限制
-- **无认证**: 10 请求/分钟
-- **有认证**: 30 请求/分钟（使用 `GITHUB_TOKEN`）
-- **搜索配额**: 每分钟最多 10 次搜索请求
+## 项目结构
 
----
+```
+github-talent-hunter/
+├── scripts/
+│   ├── github-talent-hunter              # 主 CLI（完整功能）
+│   ├── github-talent-hunter-standalone.py # 单文件版本
+│   ├── chinese_focus.py                   # 华人特性分析模块
+│   ├── github_product_maker_finder.py     # 产品型开发者识别
+│   ├── kimim_client.py                    # Kimi API 封装
+│   ├── github_client.py                   # GitHub API 封装
+│   ├── diagnosis.py                       # 企业诊断逻辑
+│   └── archive/                           # 调试文件归档
+├── references/
+│   └── api-docs.md                        # API 参考文档
+├── docs/
+│   └── filter-strategy.md                 # 筛选策略文档
+├── SKILL.md                               # OpenClaw Skill 配置
+├── AGENT_USAGE.md                         # 外部 Agent 使用指南
+├── XIAOHONGSHU_COPY.md                    # 小红书宣传文案
+└── README.md                              # 本文件
+```
 
-## 🤝 贡献指南
+## Changelog
 
-欢迎提交 Issue 和 PR！
+### v1.2.3
+- 📝 精简 description，优化 clawhub 显示
+- 📚 完善 README 文档
 
-### 相关项目
-- 🔗 [ClawHub Skill](https://clawhub.ai/skills/github-talent-hunter) — Python CLI 版本，支持 `--chinese-focus` 华人特性分析
+### v1.2.2
+- 📚 更新 SKILL.md：完善核心能力列表、差异对比表、示例输出
+- 🔧 更新独立版模型名为 `kimi-coding/k2p5`
 
----
+### v1.2.1
+- 🔧 修复版本号不一致问题
+- 🔧 补上 `--product-maker` 功能（search 和 analyze 命令都支持）
+- 🔧 统一企业诊断为"3阶段"
+- 🔧 更新 Kimi 模型为 `kimi-coding/k2p5`
+- 🔧 清理调试文件至 archive/ 目录
+- 🔧 添加 API 指数退避重试机制
 
-## 🙏 致谢
+### v1.2.0
+- ✨ 新增 `--product-maker` 产品型开发者识别功能
+- 🔍 基于 "Building in Public" 理念，识别全能型开发者
+- 📊 产品型评分模型（满分100）：产品落地+公开分享+技术影响力
+- 🐦 利用 Twitter 账号作为筛选器，命中率94%
 
-- [AgentPlace](https://agentplace.ai) — 无代码 AI 应用构建平台
-- [GitHub API](https://docs.github.com/en/rest) — 人才数据源
-- [Google Gemini](https://deepmind.google/technologies/gemini/) — 大语言模型支持
-- [Recharts](https://recharts.org/) — 数据可视化组件
-- [OpenClaw](https://openclaw.ai) — CLI Skill 生态支持
+### v1.1.0
+- ✨ 新增 `--chinese-focus` 华人特性分析功能
+- 🔍 支持检测 20+ 大厂背景
+- 📊 新增双轨参与指数计算
+- 🇨🇳 支持中文内容识别
+
+### v1.0.0
+- 🎉 初始版本发布
+- 🤖 基于 Kimi 2.5 的企业智能诊断
+- 🔍 GitHub 人才搜索与分析
+- 📊 8 维度能力评估模型
+
+## 与原项目的差异
+
+本项目基于 [jerryjliu/portfolio_manager](https://github.com/jerryjliu/portfolio_manager) 改造：
+
+| 项目 | 原项目 | 本项目 |
+|------|--------|--------|
+| LLM | Google Gemini | **Kimi 2.5** |
+| 前端 | React Web UI | **CLI 工具** |
+| 部署 | Node.js 全栈 | **Python 脚本** |
+| 依赖 | npm 依赖 | **仅标准库** |
+| 华人特性 | 无 | **--chinese-focus** ⭐ |
+| 产品型识别 | 无 | **--product-maker** 🚀 |
+
+## License
+
+MIT
+
+## 相关链接
+
+- **ClawHub Skill**: https://clawhub.com/skills/github-talent-hunter
+- **GitHub 仓库**: https://github.com/ZeHidein/github-talent-hunter
+- **OpenClaw 官网**: https://openclaw.ai
+- **Kimi API**: https://platform.moonshot.cn/
+- **GitHub API**: https://docs.github.com/en/rest
