@@ -3,3 +3,4 @@ import './Table';
 import './Video';
 import './DiagnosisReport';
 import './TalentCard';
+import './GitHubTokenConfig';

@@ -23,6 +23,7 @@ import type { ComponentConfig } from '../../ws/agent-session.types';
 import { jsonSchema } from '@ai-sdk/provider-utils';
 import { UseAgentTool } from '../tools/impl/use-agent.tool';
 import { SearchGitHubTalentTool } from '../tools/impl/github-talent.tool';
+import { SaveKeywordsTool } from '../tools/impl/save-keywords.tool';
 import { getJWTPayload } from '../../util/jwt';
 
 export class ToolRegistryFactory {
@@ -40,6 +41,9 @@ export class ToolRegistryFactory {
 
     // Register GitHub talent search tool
     toolRegistry.registerTool(new SearchGitHubTalentTool());
+
+    // Register keywords saving tool
+    toolRegistry.registerTool(new SaveKeywordsTool());
     // Register browser-based tools if UI MCP is enabled (voice and memory bank)
     if (isUiMcpEnabled()) {
       toolRegistry.registerTool(new PlayVoiceAssistanceTool());

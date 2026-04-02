@@ -2,14 +2,19 @@
  * GitHub Talent Search Tool
  *
  * Searches GitHub users by keywords, language, location, etc.
- * Uses the public GitHub REST API (no auth required, 10 req/min rate limit).
+ * Uses the public GitHub REST API. When a Personal Access Token is configured
+ * (via GitHubTokenConfig component → tRPC router), the tool uses authenticated
+ * requests for higher rate limits (5000 req/hr vs 10 req/min).
  */
 import { z } from 'zod';
 import {
   ToolModel,
+  type AgentState,
   type ToolExecuteContext,
   type ToolExecuteResult,
 } from '../../agent/agent-library';
+import { getSessionKey, type DevServerAppState } from '../../agent/agent-state';
+import { getGitHubToken } from '../../../trpc/routers/github-token.router';
 
 const GitHubTalentSchema = z.object({
   keywords: z
@@ -78,8 +83,27 @@ export class SearchGitHubTalentTool extends ToolModel<GitHubTalentInput> {
     });
   }
 
-  async execute(input: GitHubTalentInput, _ctx: ToolExecuteContext): Promise<ToolExecuteResult> {
+  #getHeaders(sessionKey?: string): Record<string, string> {
+    const headers: Record<string, string> = {
+      'Accept': 'application/vnd.github.v3+json',
+      'User-Agent': 'GitHubTalentScout/1.0',
+    };
+    if (sessionKey) {
+      const token = getGitHubToken(sessionKey);
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+      }
+    }
+    return headers;
+  }
+
+  async execute(input: GitHubTalentInput, ctx: ToolExecuteContext): Promise<ToolExecuteResult> {
     console.log('[SearchGitHubTalent] Input:', JSON.stringify(input));
+
+    // Get session key for token lookup
+    const agentState = ctx.runner.state as AgentState<unknown, DevServerAppState>;
+    const sessionKey = getSessionKey(agentState);
+    const hasToken = sessionKey ? !!getGitHubToken(sessionKey) : false;
 
     try {
       // Build GitHub search query
@@ -106,23 +130,28 @@ export class SearchGitHubTalentTool extends ToolModel<GitHubTalentInput> {
 
       const query = queryParts.join(' ');
       const maxResults = Math.min(Math.max(input.maxResults || 6, 1), 10);
+      const headers = this.#getHeaders(sessionKey);
 
-      console.log('[SearchGitHubTalent] Query:', query);
+      console.log('[SearchGitHubTalent] Query:', query, '| Authenticated:', hasToken);
 
       // Search users
       const searchUrl = `https://api.github.com/search/users?q=${encodeURIComponent(query)}&sort=followers&order=desc&per_page=${maxResults}`;
-      const searchRes = await fetch(searchUrl, {
-        headers: {
-          'Accept': 'application/vnd.github.v3+json',
-          'User-Agent': 'GitHubTalentScout/1.0',
-        },
-      });
+      const searchRes = await fetch(searchUrl, { headers });
 
       if (!searchRes.ok) {
         const errText = await searchRes.text();
         console.error('[SearchGitHubTalent] Search API error:', searchRes.status, errText);
+
+        if (searchRes.status === 403) {
+          return {
+            output: hasToken
+              ? 'GitHub API rate limit reached even with token. Please wait a moment and try again.'
+              : 'GitHub API rate limit reached. Configure a GitHub Token via `GitHubTokenConfig` to get higher rate limits (5000 req/hr).',
+            uiProps: { error: true, needsToken: !hasToken },
+          };
+        }
         return {
-          output: `GitHub API error (${searchRes.status}): Rate limit may be reached. Please try again in a moment.`,
+          output: `GitHub API error (${searchRes.status}). Please try again in a moment.`,
           uiProps: { error: true },
         };
       }
@@ -140,7 +169,7 @@ export class SearchGitHubTalentTool extends ToolModel<GitHubTalentInput> {
       // Fetch detailed profiles + top repos for each user (in parallel, max 6)
       const userLogins = searchData.items.slice(0, maxResults).map((u) => u.login);
       const talents = await Promise.all(
-        userLogins.map((login) => this.#fetchUserProfile(login)),
+        userLogins.map((login) => this.#fetchUserProfile(login, headers)),
       );
 
       const validTalents = talents.filter((t) => t !== null);
@@ -161,8 +190,10 @@ export class SearchGitHubTalentTool extends ToolModel<GitHubTalentInput> {
         )
         .join('\n');
 
+      const authNote = hasToken ? '' : '\n\n(Tip: 未配置GitHub Token，当前使用公开API，速率有限)';
+
       return {
-        output: `Found ${searchData.total_count} total matches. Top ${validTalents.length} profiles:\n\n${summary}`,
+        output: `Found ${searchData.total_count} total matches. Top ${validTalents.length} profiles:\n\n${summary}${authNote}`,
         uiProps: result,
       };
     } catch (error) {
@@ -175,22 +206,12 @@ export class SearchGitHubTalentTool extends ToolModel<GitHubTalentInput> {
     }
   }
 
-  async #fetchUserProfile(login: string) {
+  async #fetchUserProfile(login: string, headers: Record<string, string>) {
     try {
       // Fetch user details and repos in parallel
       const [userRes, reposRes] = await Promise.all([
-        fetch(`https://api.github.com/users/${login}`, {
-          headers: {
-            'Accept': 'application/vnd.github.v3+json',
-            'User-Agent': 'GitHubTalentScout/1.0',
-          },
-        }),
-        fetch(`https://api.github.com/users/${login}/repos?sort=stars&per_page=6`, {
-          headers: {
-            'Accept': 'application/vnd.github.v3+json',
-            'User-Agent': 'GitHubTalentScout/1.0',
-          },
-        }),
+        fetch(`https://api.github.com/users/${login}`, { headers }),
+        fetch(`https://api.github.com/users/${login}/repos?sort=stars&per_page=6`, { headers }),
       ]);
 
       if (!userRes.ok) return null;
